@@ -2,25 +2,26 @@
 .DEFAULT_GOAL := help
 
 DOCKER_TAG := latest
-build:
-	docker build -t nsakki55/gotodo:${DOCKER_TAG} --target deploy ./
+build: ## Build docker image to deploy
+	docker build -t nsakki55/gotodo:${DOCKER_TAG} \
+		--target deploy ./
 
-build-local:
+build-local: ## Build docker image to local development
 	docker compose build --no-cache
 
-up:
+up: ## Do docker compose up with hot reload
 	docker compose up -d
 
-down:
+down: ## Do docker compose down
 	docker compose down
 
-logs:
+logs: ## Tail docker compose logs
 	docker compose logs -f
 
-ps:
+ps: ## Check container status
 	docker compose ps
 
-test:
+test: ## Execute tests
 	go test -race -shuffle=on ./...
 
 help: ## Show options
